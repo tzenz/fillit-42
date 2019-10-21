@@ -36,7 +36,9 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
+char	            *ft_strtrims(char const *s);
 int					get_next_line(const int fd, char **line);
+void	            ft_putsstr(char **s);
 
 void				*ft_memset(void *dest, int c, size_t n);
 void				ft_bzero(void *s, size_t n);

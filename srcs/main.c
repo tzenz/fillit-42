@@ -13,27 +13,6 @@
 #include "../libft/include/libft.h"
 #include "../srcs/fillit.h"
 
-void	ft_putsstr(char **s)
-{
-	while (*s)
-	{
-		ft_putstr(*s);
-		ft_putchar('\n');
-		s++;
-	}
-}
-
-int 	ft_chrsim(char *s)
-{
-	int count;
-
-	count = 0;
-	while (*s)
-		if (*s++ == '#')
-			count++;
-	return (count);
-}
-
 void	ft_strswap(char **s, char c)
 {
 	int count;
@@ -50,6 +29,7 @@ void	ft_strswap(char **s, char c)
 int 	main(int argc, char **argv)
 {
 	char 	**s;
+	char    **res;
 	char 	*str;
 	char 	buf[100];
 	int 	fd;
@@ -82,6 +62,23 @@ int 	main(int argc, char **argv)
 			c++;
 		}
 	}
+	r = 0;
+    while (s[r]) //утечка strims выделяет новые строки, старые нужно затереть
+    {
+        s[r] = ft_strtrims(s[r]);
+        r++;
+    }
+    r = r / 3;
+    res = (char **)ft_memalloc(sizeof(char **) * r)
+    r = 0;
+    while (s[r])
+    {
+        if (s[r] > s[r + 1])
+        {
+            while ()
+        }
+        r++;
+    }*/
 	ft_putsstr(s);
 	return (0);
 }
