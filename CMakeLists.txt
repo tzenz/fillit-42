@@ -64,4 +64,4 @@ add_executable(fillit
         libft/ft_strtrim.c
         libft/ft_tolower.c
         libft/ft_toupper.c
-        libft/libft.h fillit.c main.c libft/ft_putsstr.c)
+        libft/libft.h fillit.c main.c libft/ft_putsstr.c srcs/main.c srcs/part1.c)
