@@ -12,40 +12,36 @@
 
 #include "../libft/include/libft.h"
 #include <stdio.h>
+int		valid(char *s);
 
-int		valid(char *s)
+int		part(char *s)
 {
-	int 	i;
-	int 	j;
-	int 	m;
-	int		count;
+	int 	count1;
+	int 	count2;
+	int 	count3;
+	int 	count4;
+	int 	flag;
+	int		i;
 
+	count1 = 0;
+	count2 = 0;
+	count3 = 0;
+	count4 = 0;
+	flag = 1;
 	i = 0;
-	m = 5;
-	j = 20;
-	count = 0;
-	while (s[i])
+	while (s[i] != '\n')
 	{
-		while (s[i] != '\n')
-		{
-			if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
-				return (-1);
-			if (s[i] == '#')
-				count++;
-			i++;
-		}
-		printf ("i - %d   ", i - 1);
-		printf ("m - %d\n", m);
-		if ((i < (m - 1) && s[i - 1] != '\n'))
-			return (-1);
-		if (s[i - 1] != '\n')
-			m = m + 5;
-		if (s[i] == '\n' && s[i + 1] == '\n')
-			m++;
-		if (s[i] == '\n' && s[i + 1] == '\n' && s[i + 2] == '\n')
-			return (-1);
+		if (s[i] == '#')
+			count1++;
+		if (s[i + 5] == '#')
+			count2++;
+		if (s[i + 10] == '#')
+			count3++;
+		if (s[i + 15] == '#')
+			count4++;
 		i++;
 	}
+	printf("1 - %d\n2 - %d\n3 - %d\n4 - %d\n", count1, count2, count3, count4);
 	return (0);
 }
 
@@ -56,14 +52,16 @@ int		main(void)
 	int fd;
 	int r;
 
-	fd = open("test", O_RDONLY);
+	fd = open("testease", O_RDONLY);
 	s = ft_strnew(1);
 	while ((r = (read(fd, buf, 100))))
 	{
 		buf[r] = '\0';
 		s = ft_strjoin(s, buf);
 	}
-	ft_putnbr(valid(s));
+	if (valid(s) < 0)
+		return (-1);
+	part(s);
 	return (0);
 }
 
