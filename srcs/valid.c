@@ -47,7 +47,7 @@ int		valid(char *s)
 			m = m + 5;
 		if ((s[i] == '\n' && s[i + 1] == '\n') || s[i + 1] == '\0')
 		{
-			if (count > 4)
+			if (count != 4)
 			{
 				ft_putchar('B');
 				return (-1);

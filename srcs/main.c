@@ -14,35 +14,35 @@
 #include <stdio.h>
 int		valid(char *s);
 
-int		part(char *s)
+int		part1(char *s)
 {
-	int 	count1;
-	int 	count2;
-	int 	count3;
-	int 	count4;
+	int 	count;
 	int 	flag;
 	int		i;
+	int 	j;
 
-	count1 = 0;
-	count2 = 0;
-	count3 = 0;
-	count4 = 0;
-	flag = 1;
+	count = 1;
 	i = 0;
-	while (s[i] != '\n')
-	{
-		if (s[i] == '#')
-			count1++;
-		if (s[i + 5] == '#')
-			count2++;
-		if (s[i + 10] == '#')
-			count3++;
-		if (s[i + 15] == '#')
-			count4++;
+	j = 0;
+	flag = 0;
+	while (s[i] != '#')
 		i++;
+	while (j < 3)
+	{
+		if (s[i] == s[i + 1])
+		{
+			i++;
+			count++;
+		}
+		else if (s[i] == s[i + 5])
+		{
+			i += 5;
+			count++;
+		}
+		ft_putnbr(count);
+		j++;
 	}
-	printf("1 - %d\n2 - %d\n3 - %d\n4 - %d\n", count1, count2, count3, count4);
-	return (0);
+	return ((count == 4)) ? 0 : -1;
 }
 
 int		main(void)
@@ -61,7 +61,7 @@ int		main(void)
 	}
 	if (valid(s) < 0)
 		return (-1);
-	part(s);
+	ft_putnbr(part1(s));
 	return (0);
 }
 
