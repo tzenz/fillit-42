@@ -15,17 +15,43 @@
 int		valid1(char *s);
 int		valid2(char *s, char sim);
 
+char	*addline(char *s)
+{
+	char 	*str;
+	int 	count;
+	int 	i;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n' && s[i + 1] == '\n')
+			count++;
+		i++;
+	}
+	count++;
+	str = ft_strnew(20);
+	i = 0;
+	while (str[i])
+	{
+		str[i] = '.';
+
+		if (i == 3 || i == 8 || i == 13 || i == 18)
+		{
+			str[i + 1] = '\n';
+			i++;
+		}
+		i++;
+	}
+	ft_putstr(str);
+	return (str);
+}
+
 int		reason(char *s)
 {
 	char	*print;
-	int 	i;
-	int 	j;
 
-	i = 0;
-	j = 22;
-	print = ft_strnew(21);
-	ft_strncpy(print, s, 20);
-	ft_putstr(print);
+	print = addline(s);
 	return (0);
 }
 
