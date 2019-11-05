@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
-#include <stdio.h>
 
-int		valid(char *s)
+int		valid1(char *s)
 {
 	int 	i;
 	int 	j;
@@ -25,14 +24,17 @@ int		valid(char *s)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] != '\n')
+		while (s[i] != '\n' && s[i])
 		{
 			if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
 			{
+				ft_putnbr(i);
+				ft_putchar('\n');
+				ft_putnbr(m);
 				ft_putchar('M');
 				return (-1);
 			}
-			if (s[i] == '#')
+		 if (s[i] == '#')
 				count++;
 			i++;
 		}
