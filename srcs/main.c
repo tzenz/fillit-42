@@ -12,57 +12,71 @@
 
 #include "../libft/include/libft.h"
 #include <stdio.h>
-int		valid1(char *s);
-int		valid2(char *s, char sim);
-
-char	*addline(char *s)
-{
-	char 	*str;
-	int 	count;
-	int 	i;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n' && s[i + 1] == '\n')
-			count++;
-		i++;
-	}
-	count++;
-	str = ft_strnew(20);
-	i = 0;
-	while (str[i])
-	{
-		str[i] = '.';
-
-		if (i == 3 || i == 8 || i == 13 || i == 18)
-		{
-			str[i + 1] = '\n';
-			i++;
-		}
-		i++;
-	}
-	ft_putstr(str);
-	return (str);
-}
 
 int		reason(char *s)
 {
-	char	*print;
+	char *print;
+	int count;
+	int flag;
+	int stop;
+	int i;
+	int j;
 
+	stop = 21;
+	flag = 0;
+	i = 0;
+	j = 0;
 	print = addline(s);
+	while (print[i] && !flag)
+	{
+		if (print[i] == '.')
+		{
+			count = 0;
+			while (s[j] != 'A' && s[j] != 'B' && s[j] != 'C' && s[j] != 'D')
+				j++;
+			print[i + count++] = s[j++];
+			while (j < stop)
+			{
+				if (s[j] == 'A')
+				{
+					print[i + count] = s[j];
+					count++;
+					j++;
+//					printf("ONE\n");
+				}
+				else
+				{
+					while (s[j] != 'A' && j < stop)
+					{
+						count++;
+						j++;
+					}
+//					printf("TWO\n");
+					print[i + count++] = s[j];
+					j++;
+				}
+				if (s[j] == '\0')
+					flag = 1;
+				printf("count - %d\n", count);
+			}
+		}
+		stop *= 2;
+		i++;
+	}
+	ft_putstr(print);
+	printf("\nj - %d\n", j);
+	printf("stop - %d\n", stop);
 	return (0);
 }
 
 int		main(void)
 {
-	char *s;
-	char buf[100];
-	char sim;
-	int fd;
-	int r;
-	int i;
+	char	*s;
+	char	buf[100];
+	char	sim;
+	int		fd;
+	int		r;
+	int		i;
 
 	i = 0;
 	fd = open("test", O_RDONLY);
@@ -81,9 +95,7 @@ int		main(void)
         	return (-1);
         i += 21;
     }
+//    ft_putstr(s);
     reason(s);
-	//ft_putstr(s);
 	return (0);
 }
-
-
