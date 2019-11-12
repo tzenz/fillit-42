@@ -29,6 +29,13 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct			s_tetrimino
+{
+    size_t				numb;
+    char				**content;
+    struct tetrimino	*next;
+}						tetrimino;
+
 typedef struct				s_get_next_line
 {
 	int						fd;
@@ -36,10 +43,10 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
+
 int					valid(char **s);
-char				*addline(char *s);
-int					valid1(char *s);
-int					valid2(char *s, char sim);
+int					vone(char *s);
+int					vtwo(char *s, char sim);
 
 char	            *ft_strtrims(char const *s);
 int					get_next_line(const int fd, char **line);

@@ -1,4 +1,4 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/tzenz/fillit
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/you/fillit
 -- Configuring done
 CMake Error at CMakeLists.txt:8 (add_executable):
   Cannot find source file:
@@ -13,4 +13,4 @@ CMake Error at CMakeLists.txt:8 (add_executable):
   No SOURCES given to target: fillit
 
 
--- Build files have been written to: /Users/tzenz/fillit/cmake-build-debug
+CMake Generate step failed.  Build files cannot be regenerated correctly.

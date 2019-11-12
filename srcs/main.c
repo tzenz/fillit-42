@@ -13,13 +13,13 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-
 int		main(void)
 {
 	char	*s;
 	char	buf[100];
 	int		fd;
 	int		r;
+	tetrimino *ptr;
 
 	fd = open("test", O_RDONLY);
 	s = ft_strnew(1);
@@ -30,6 +30,7 @@ int		main(void)
 	}
 	if (valid(&s) < 0)
 		return (-1);
+//    ptr = tetr(s);
     ft_putstr(s);
 	return (0);
 }
