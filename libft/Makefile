@@ -14,7 +14,7 @@ NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror -I include/
 
-SRC = 	ft_strtrims.c\
+SRC =   ft_strtrims.c\
         ft_putsstr.c\
         get_next_line.c\
         ft_memset.c\

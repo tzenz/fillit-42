@@ -26,25 +26,24 @@ int		valid2(char *s, char sim)
 	while (s[i] != '#')
 		i++;
 	e = i;
-	while ((s[e + 1] == '#') || (s[e + 5] == '#' || s[e] == '#')) {
+	while ((s[e + 1] == '#') || (s[e + 5] == '#' || s[e] == '#'))
+	{
 		s[e] = sim;
-//      ft_putchar('O');
 		count++;
-		//     ft_putnbr(e);
 		i = e;
-		while (s[i + 5] == '#' && i + 5 < 21) {
+		while (s[i + 5] == '#' && i + 5 < 21)
+		{
 			i += 5;
-			//         ft_putchar('U');
 			j = i;
-			while (s[j + 1] == '#') {
+			while (s[j + 1] == '#')
+			{
 				j++;
 				s[j] = sim;
-				//             ft_putchar('L');
 				count++;
 			}
 			j = i;
-			while (s[j - 1] == '#') {
-				//             ft_putchar('M');
+			while (s[j - 1] == '#')
+			{
 				j--;
 				s[j] = sim;
 				count++;
@@ -54,6 +53,5 @@ int		valid2(char *s, char sim)
 		}
  		e++;
 	}
-//	printf("count - %d\n", count);
 	return ((count != 4)) ? -1 : 0;
 }
