@@ -30,12 +30,19 @@ tetrimino   *tetr(char *s)
 
     j = 0;
     i = 0;
-    while (s[i] != '#')
+    ft_bzero(buf, 8);
+    while (s[i] != 'A')
     	i++;
-	while (s[i + 1] == '#' || s[i] == '#')
+	while (s[i] == 'A' || s[i + 1] == 'A')
 	{
-	//	buf[j++] = s[i++];
-		ft_putstr(buf);
+		buf[j] = s[i];
+		if (s[i + 5] == 'A')
+		{
+			e = j;
+			buf[e + 5] = s[i + 5];
+		}
+		j++;
+		i++;
 	}
 	buf[j] = '\0';
 	ft_putstr(buf);

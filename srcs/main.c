@@ -33,8 +33,8 @@ int		main(void)
 		ft_putstr("0\n");
 		return (-1);
 	}
-//    tetr(s);
-    ft_putstr(s);
+    tetr(s);
+//    ft_putstr(s);
 //    ft_putchar('\n');
 	return (0);
 }

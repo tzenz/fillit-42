@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
+#include <stdio.h>
 
 int			valid(char **s)
 {
@@ -23,7 +24,10 @@ int			valid(char **s)
 	i = 0;
 	count = 0;
 	if (vone(*s, &n, &count) < 0)
+	{
+		ft_putchar('?');
 		return (-1);
+	}
 	sim = 'A';
 	while (s[0][i])
 	{
@@ -43,23 +47,31 @@ int			vone(char *s, int *n, int *count)
 	m = 5;
 	while (s[i])
 	{
+//		printf("i - %d\n", i);
 		while (s[i] != '\n' && s[i])
 		{
 			if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
+			{
+//				printf("iw - %d\n", i);
+//				ft_putchar('\n');
+//				ft_putnbr(m);
+//				ft_putchar('!');
 				return (-1);
+			}
 			if (s[i++] == '#')
 				*count += 1;
 		}
 		*n += 1;
 		if (s[i] == '\n' && s[i - 1] == '\n')
 		{
-			ft_putnbr(*n);
+//			ft_putnbr(*n);
 			if (*n > 5)
 				return (-1);
 			*n = 0;
 		}
 		if (ft_one(s, i, &m, count) < 0 || i++ > 545)
 			return (-1);
+//		printf("iafter - %d\n", i);
 	}
 	return (0);
 }
@@ -68,7 +80,7 @@ int			ft_one(char *s, int i, int *m, int *count)
 {
 	if (i < (*m - 1) && s[i - 1] != '\n')
 		return (-1);
-	if (s[i - 1] != '\n')
+	if (s[i] != '\0' && s[i - 1] != '\n')
 		*m = *m + 5;
 	if ((s[i] == '\n' && s[i + 1] == '\n') || s[i + 1] == '\0')
 	{
