@@ -21,7 +21,7 @@ int		main(void)
 	int		r;
 	tetrimino *ptr;
 
-	fd = open("test", O_RDONLY);
+	fd = open("testone", O_RDONLY);
 	s = ft_strnew(1);
 	while ((r = (read(fd, buf, 100))))
 	{
@@ -29,8 +29,12 @@ int		main(void)
 		s = ft_strjoin(s, buf);
 	}
 	if (valid(&s) < 0)
+	{
+		ft_putstr("0\n");
 		return (-1);
-//    ptr = tetr(s);
+	}
+//    tetr(s);
     ft_putstr(s);
+//    ft_putchar('\n');
 	return (0);
 }

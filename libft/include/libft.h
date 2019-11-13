@@ -43,10 +43,12 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-
+tetrimino   		*tetr(char *s);
 int					valid(char **s);
-int					vone(char *s);
+int					vone(char *s, int *n, int *count);
+int					ft_one(char *s, int i, int *m, int *count);
 int					vtwo(char *s, char sim);
+void				ft_two(char *s, int *i, int *count, char *sim);
 
 char	            *ft_strtrims(char const *s);
 int					get_next_line(const int fd, char **line);

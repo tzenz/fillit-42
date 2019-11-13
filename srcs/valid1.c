@@ -6,21 +6,23 @@
 /*   By: tzenz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 11:57:50 by tzenz             #+#    #+#             */
-/*   Updated: 2019/10/31 11:57:51 by tzenz            ###   ########.fr       */
+/*   Updated: 2019/11/13 10:24:44 by tzenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/include/libft.h"
-int		one(char *s, int i, int *m, int *count);
-void    two(char *s, int *i, int *j, int *count, char *sim);
 
-int		valid(char **s)
+int			valid(char **s)
 {
 	char	sim;
 	int		i;
+	int		n;
+	int		count;
 
+	n = 0;
 	i = 0;
-	if (vone(*s) < 0)
+	count = 0;
+	if (vone(*s, &n, &count) < 0)
 		return (-1);
 	sim = 'A';
 	while (s[0][i])
@@ -32,99 +34,101 @@ int		valid(char **s)
 	return (0);
 }
 
-int		vone(char *s)
+int			vone(char *s, int *n, int *count)
 {
-    int 	i;
-    int 	m;
-    int		count;
+	int		i;
+	int		m;
 
-    i = 0;
-    m = 5;
-    count = 0;
-    while (s[i])
-    {
-        while (s[i] != '\n' && s[i])
-        {
-            if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
-                return (-1);
-            if (s[i] == '#')
-                count++;
-            i++;
-        }
-        if (i > 545)
-            return (-1);
-       if (one(s, i, &m, &count) < 0)
-           return (-1);
-        i++;
-    }
-    return (0);
+	i = 0;
+	m = 5;
+	while (s[i])
+	{
+		while (s[i] != '\n' && s[i])
+		{
+			if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
+				return (-1);
+			if (s[i++] == '#')
+				*count += 1;
+		}
+		*n += 1;
+		if (s[i] == '\n' && s[i - 1] == '\n')
+		{
+			ft_putnbr(*n);
+			if (*n > 5)
+				return (-1);
+			*n = 0;
+		}
+		if (ft_one(s, i, &m, count) < 0 || i++ > 545)
+			return (-1);
+	}
+	return (0);
 }
 
-int		one(char *s, int i, int *m, int *count)
+int			ft_one(char *s, int i, int *m, int *count)
 {
-    if (i < (*m - 1) && s[i - 1] != '\n')
-        return (-1);
-    if (s[i - 1] != '\n')
-        *m = *m + 5;
-    if ((s[i] == '\n' && s[i + 1] == '\n') || s[i + 1] == '\0')
-    {
-        if (*count != 4)
-            return (-1);
-        *count = 0;
-        *m += 1;
-    }
-    if (s[i] == '\n' && s[i + 1] == '\n' && s[i + 2] == '\n')
-        return (-1);
-    return(0);
+	if (i < (*m - 1) && s[i - 1] != '\n')
+		return (-1);
+	if (s[i - 1] != '\n')
+		*m = *m + 5;
+	if ((s[i] == '\n' && s[i + 1] == '\n') || s[i + 1] == '\0')
+	{
+		if (*count != 4)
+			return (-1);
+		*count = 0;
+		*m += 1;
+	}
+	if (s[i] == '\n' && s[i + 1] == '\n' && s[i + 2] == '\n')
+		return (-1);
+	return (0);
 }
 
-int		vtwo(char *s, char sim)
+int			vtwo(char *s, char sim)
 {
-    int 	count;
-    int 	e;
-    int		i;
-    int 	j;
+	int		count;
+	int		e;
+	int		i;
 
-    count = 0;
-    i = 0;
-    j = 0;
-    e = 0;
-    while (s[i] != '#')
-        i++;
-    e = i;
-    while ((s[e + 1] == '#') || (s[e + 5] == '#' || s[e] == '#'))
-    {
-        s[e] = sim;
-        count++;
-        i = e;
-        two(s, &i, &j, &count, &sim);
-        e++;
-    }
-    return ((count != 4)) ? -1 : 0;
+	count = 0;
+	i = 0;
+	e = 0;
+	while (s[i] != '#')
+		i++;
+	e = i;
+	while ((s[e + 1] == '#') || (s[e + 5] == '#' || s[e] == '#'))
+	{
+		s[e] = sim;
+		count++;
+		i = e;
+		ft_two(s, &i, &count, &sim);
+		e++;
+	}
+	return ((count != 4)) ? -1 : 0;
 }
 
-void    two(char *s, int *i, int *j, int *count, char *sim)
+void		ft_two(char *s, int *i, int *count, char *sim)
 {
-    while (s[*i + 5] == '#' && *i + 5 < 21)
-    {
-        *i += 5;
-        *j = *i;
-        while (s[*j + 1] == '#')
-        {
-            *j += 1;
-            s[*j] = *sim;
-            *count += (s[*j + 5] == '#') ? 2 : 1;
-            s[*j + 5] = (s[*j + 5] == '#') ? *sim : s[*j + 5];
-        }
-        *j = *i;
-        while (s[*j - 1] == '#')
-        {
-            *j -= 1;
-            s[*j] = *sim;
-            *count += (s[*j + 5] == '#') ? 2 : 1;
-            s[*j + 5] = (s[*j + 5] == '#') ? *sim : s[*j + 5];
-        }
-        s[*i] = *sim;
-        *count += 1;
-    }
+	int		j;
+
+	while (s[*i + 5] == '#' && *i + 5 < 21)
+	{
+		*i += 5;
+		j = *i;
+		while (s[j + 1] == '#')
+		{
+			j++;
+			s[j] = *sim;
+			*count += (s[j + 5] == '#' && j + 5 < 21) ? 2 : 1;
+			s[j + 5] = (s[j + 5] == '#' && j + 5 < 21) ? *sim : s[j + 5];
+		}
+		j = *i;
+		while (s[j - 1] == '#')
+		{
+			j -= 1;
+			s[j] = *sim;
+			*count += (s[j + 5] == '#' && j + 5 < 21) ? 2 : 1;
+			s[j + 5] = (s[j + 5] == '#' && j + 5 < 21) ? *sim : s[j + 5];
+		}
+		s[*i] = *sim;
+		*count += 1;
+	}
 }

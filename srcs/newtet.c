@@ -13,25 +13,31 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-tetrimino   *newtet(char *s)
+/*tetrimino   *newtet(char *s)
 {
     tetrimino   *ptr;
 
     ptr = (tetrimino*)ft_memalloc(sizeof(tetrimino));
-}
+}*/
 
 tetrimino   *tetr(char *s)
 {
     tetrimino   *ptr;
+    char 	buf[8];
     int     i;
+    int 	j;
+    int 	e;
 
+    j = 0;
     i = 0;
-    while (s[i])
-    {
-        if (s[i] != '.' && s[i] != '\n' && s[i])
-        {
-            
-            i++;
-        }
-    }
+    while (s[i] != '#')
+    	i++;
+	while (s[i + 1] == '#' || s[i] == '#')
+	{
+	//	buf[j++] = s[i++];
+		ft_putstr(buf);
+	}
+	buf[j] = '\0';
+	ft_putstr(buf);
+	return (NULL);
 }
