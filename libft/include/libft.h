@@ -32,8 +32,8 @@ typedef struct		s_list
 typedef struct			s_tetrimino
 {
     size_t				numb;
-    char				**content;
-    struct tetrimino	*next;
+    char				*content;
+    struct s_tetrimino	*next;
 }						tetrimino;
 
 typedef struct				s_get_next_line
@@ -43,7 +43,10 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-tetrimino   		*tetr(char *s);
+char   				*ft_add(char *s);
+tetrimino			*maintet(char *s);
+tetrimino   		*ft_newtet(char *s, int	numb);
+
 int					valid(char **s);
 int					vone(char *s, int *n, int *count);
 int					ft_one(char *s, int i, int *m, int *count);

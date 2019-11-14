@@ -13,49 +13,88 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-/*tetrimino   *newtet(char *s)
+tetrimino	*maintet(char *s)
 {
-    tetrimino   *ptr;
+	tetrimino	*head;
+	tetrimino	*tmp;
+	int			i;
+	int 		count;
 
-    ptr = (tetrimino*)ft_memalloc(sizeof(tetrimino));
-}*/
+	i = 0;
+	count = 0;
+	tmp = head;
+//	while (s[i])
+//	{
+		if (!head)
+			tmp = ft_newtet(ft_add(&s[i]), count);
+		else
+			tmp->next = ft_newtet(ft_add(&s[i]), count);
+		ft_putstr(tmp->content);
+		tmp = tmp->next;
+		count++;
+		i += 21;
+//	}
+	return (head);
+}
 
-tetrimino   *tetr(char *s)
+tetrimino   *ft_newtet(char *s, int	numb)
 {
-    tetrimino   *ptr;
-    char 	buf[10];
-    int     i;
-    int 	j;
+	tetrimino   *tmp;
+
+	tmp = (tetrimino*)ft_memalloc(sizeof(tetrimino));
+	tmp->numb = numb;
+	tmp->content = s;
+	tmp->next = NULL;
+	return (tmp);
+
+}
+
+char   *ft_add(char *s)
+{
+	char 	*buf;
 	int 	sim;
+	int     i;
+	int 	j;
 
-    j = 0;
-    i = 0;
-    sim = 0;
-    ft_bzero(buf, 10);
-    while (s[i])
+	buf = ft_strnew(10);
+	j = 0;
+	i = 0;
+	sim = 0;
+	while (s[i])
 	{
-    	while (s[i] && s[i] != '\n')
+		while (s[i] && s[i] != '\n')
 		{
-    		if (s[i] != '.')
-    			sim = s[i];
-    		i++;
+			if (s[i] != '.')
+				sim = s[i];
+			i++;
 		}
 		if (sim)
 		{
 			i -= 4;
 			while (s[i] && s[i] != '\n')
 			{
-				if (s[i] == sim || (s[i] == '.' && s[i + 5] == sim && s[i + 10] == sim))
+				if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
 					buf[j++] = s[i];
-				else if ((s[i] == '.' && s[i - 5] == sim) || (s[i] == '.' && s[i - 10] == sim))
+				else if (s[i - 5] == sim || s[i - 10] == sim)
 					buf[j++] = s[i];
 				i++;
 			}
 			buf[j++] = '\n';
-			sim = 0;
 		}
 		i++;
 	}
-	ft_putstr(buf);
-	return (NULL);
+	return (buf);
 }
+
+/*void	ft_add2(char **s, **buf, int *i, int sim)
+{
+	while (s[i] && s[i] != '\n')
+	{
+		if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
+			buf[j++] = s[i];
+		else if (s[i - 5] == sim || s[i - 10] == sim)
+			buf[j++] = s[i];
+		i++;
+	}
+	buf[j++] = '\n';
+}*/
