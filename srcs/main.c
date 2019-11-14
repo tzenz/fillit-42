@@ -35,6 +35,5 @@ int		main(void)
 	}
     tetr(s);
 //    ft_putstr(s);
-//    ft_putchar('\n');
 	return (0);
 }

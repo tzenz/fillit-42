@@ -23,28 +23,39 @@
 tetrimino   *tetr(char *s)
 {
     tetrimino   *ptr;
-    char 	buf[8];
+    char 	buf[10];
     int     i;
     int 	j;
-    int 	e;
+	int 	sim;
 
     j = 0;
     i = 0;
-    ft_bzero(buf, 8);
-    while (s[i] != 'A')
-    	i++;
-	while (s[i] == 'A' || s[i + 1] == 'A')
+    sim = 0;
+    ft_bzero(buf, 10);
+    while (s[i])
 	{
-		buf[j] = s[i];
-		if (s[i + 5] == 'A')
+    	while (s[i] && s[i] != '\n')
 		{
-			e = j;
-			buf[e + 5] = s[i + 5];
+    		if (s[i] != '.')
+    			sim = s[i];
+    		i++;
 		}
-		j++;
+		if (sim)
+		{
+			i -= 4;
+			while (s[i] && s[i] != '\n')
+			{
+				if (s[i] == sim || (s[i] == '.' && s[i + 5] == sim && s[i + 10] == sim))
+					buf[j++] = s[i];
+				else if ((s[i] == '.' && s[i - 5] == sim) || (s[i] == '.' && s[i - 10] == sim))
+					buf[j++] = s[i];
+				i++;
+			}
+			buf[j++] = '\n';
+			sim = 0;
+		}
 		i++;
 	}
-	buf[j] = '\0';
 	ft_putstr(buf);
 	return (NULL);
 }

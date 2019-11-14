@@ -19,17 +19,16 @@ int			valid(char **s)
 	int		i;
 	int		n;
 	int		count;
+	int		stop;
 
 	n = 0;
 	i = 0;
 	count = 0;
+	stop = ft_strlen(&s[0][0]);
 	if (vone(*s, &n, &count) < 0)
-	{
-		ft_putchar('?');
 		return (-1);
-	}
 	sim = 'A';
-	while (s[0][i])
+	while (s[0][i] && i < stop)
 	{
 		if (vtwo(&s[0][i], sim++) < 0)
 			return (-1);
@@ -45,33 +44,24 @@ int			vone(char *s, int *n, int *count)
 
 	i = 0;
 	m = 5;
-	while (s[i])
+	while (s[i] && i < (m - 1))
 	{
-//		printf("i - %d\n", i);
 		while (s[i] != '\n' && s[i])
 		{
 			if ((s[i] != '#' && s[i] != '.') || i >= (m - 1))
-			{
-//				printf("iw - %d\n", i);
-//				ft_putchar('\n');
-//				ft_putnbr(m);
-//				ft_putchar('!');
 				return (-1);
-			}
 			if (s[i++] == '#')
 				*count += 1;
 		}
 		*n += 1;
 		if (s[i] == '\n' && s[i - 1] == '\n')
 		{
-//			ft_putnbr(*n);
 			if (*n > 5)
 				return (-1);
 			*n = 0;
 		}
 		if (ft_one(s, i, &m, count) < 0 || i++ > 545)
 			return (-1);
-//		printf("iafter - %d\n", i);
 	}
 	return (0);
 }
@@ -82,7 +72,7 @@ int			ft_one(char *s, int i, int *m, int *count)
 		return (-1);
 	if (s[i] != '\0' && s[i - 1] != '\n')
 		*m = *m + 5;
-	if ((s[i] == '\n' && s[i + 1] == '\n') || s[i + 1] == '\0')
+	if ((s[i] == '\n' && s[i + 1] == '\n') || s[i] == '\0')
 	{
 		if (*count != 4)
 			return (-1);
