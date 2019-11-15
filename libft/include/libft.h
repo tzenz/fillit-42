@@ -45,9 +45,10 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-char   				*ft_add(char *s);
 tetrimino			*maintet(char *s);
-tetrimino   		*ft_newtet(char *s, int	numb);
+tetrimino  			 *ft_newtet(char *s, int	x, int y, int	numb);
+char   				*ft_add(char *s);
+int					ft_search(char *s);
 
 int					valid(char **s);
 int					vone(char *s, int *n, int *count);

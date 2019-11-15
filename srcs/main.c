@@ -19,10 +19,9 @@ int		main(void)
 	char	buf[550];
 	int		fd;
 	int		r;
-	int 	flag;
 	tetrimino *head;
 
-	fd = open("test", O_RDONLY);
+	fd = open("testone", O_RDONLY);
 	r = (read(fd, buf, 550));
 	buf[r] = '\0';
 	s = ft_strdup(buf);
@@ -31,74 +30,92 @@ int		main(void)
 		ft_putstr("0\n");
 		return (-1);
 	}
-	ft_putstr(s);
+//	ft_putstr(s);
 	head = maintet(s);
 	while (head->next != NULL)
 	{
-		printf("%s\n", head->content);
+		printf("%s\n, x - %zu y - %zu\n", head->content, head->x, head->y);
 		head = head->next;
 	}
+	printf("%s\n, x - %zu y - %zu\n", head->content, head->x, head->y);
 	return (0);
 }
 
-/*void	ft_check(char **s, int i, int sim)
+/*
+ tetrimino	*maintet(char *s)
 {
-	char 	buf[10];
+	tetrimino	*head;
+	tetrimino	*tmp;
+	int			i;
+	int 		count;
+	int 		stop;
 
-	ft_bzero(buf, 10);
-	if (sim)
+	i = 0;
+	count = 1;
+	head = NULL;
+	stop = ft_strlen(s);
+	while (s[i] && i < stop)
 	{
-		i -= 4;
-		while (s[i] && s[i] != '\n')
+		if (!head)
 		{
-			if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
-				buf[j++] = s[i];
-			else if (s[i - 5] == sim || s[i - 10] == sim)
-				buf[j++] = s[i];
-			i++;
+			head = ft_newtet(ft_add(&s[i]), count);
+			tmp = head;
+		} else
+		{
+			tmp->next = ft_newtet(ft_add(&s[i]), ++count);
+			tmp = tmp->next;
 		}
-		buf[j++] = '\n';
-		sim = 0;
+		i += 21;
 	}
+	return (head);
 }
 
-tetrimino   *tetr(char *s)
+char   *ft_add(char *s)
 {
-	tetrimino   *ptr;
+	char 	*buf;
+	int 	sim;
 	int     i;
 	int 	j;
-	int 	sim;
 
+	buf = ft_strnew(10);
 	j = 0;
 	i = 0;
 	sim = 0;
-	while (s[i])
+	while (s[i] && i < 20)
 	{
-		while (s[i] && s[i] != '\n')
+		if ((sim = ft_search(&s[i])))
 		{
-			if (s[i] != '.')
-				sim = s[i];
-			i++;
+			printf("%c\n", sim);
+			while (s[i] && s[i] != '\n')
+			{
+				if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
+					buf[j++] = s[i];
+				else if (s[i - 5] == sim || s[i - 10] == sim)
+					buf[j++] = s[i];
+				i++;
+			}
+			buf[j++] = '\n';
+			sim = 0;
 		}
-		if (sim)
-		{
-			ft_check(&s[i], sim);
-		}
+		else
+			i += 4;
 		i++;
 	}
-	ft_putstr(buf);
-	return (NULL);
+//	ft_putstr(buf);
+	return (buf);
 }
 
- void	ft_add2(char **s, **buf, int *i, int sim)
+int		ft_search(char *s)
 {
+	int sim;
+	int i;
+	i = 0;
+
 	while (s[i] && s[i] != '\n')
 	{
-		if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
-			buf[j++] = s[i];
-		else if (s[i - 5] == sim || s[i - 10] == sim)
-			buf[j++] = s[i];
+		if (s[i] != '.')
+			sim = s[i];
 		i++;
 	}
-	buf[j++] = '\n';
+	return (sim);
 }*/
