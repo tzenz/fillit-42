@@ -32,6 +32,8 @@ typedef struct		s_list
 typedef struct			s_tetrimino
 {
     size_t				numb;
+    size_t				x;
+    size_t				y;
     char				*content;
     struct s_tetrimino	*next;
 }						tetrimino;

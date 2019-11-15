@@ -16,25 +16,28 @@
 int		main(void)
 {
 	char	*s;
-	char	buf[100];
+	char	buf[550];
 	int		fd;
 	int		r;
+	int 	flag;
 	tetrimino *head;
 
-	fd = open("testone", O_RDONLY);
-	s = ft_strnew(1);
-	while ((r = (read(fd, buf, 100))))
-	{
-		buf[r] = '\0';
-		s = ft_strjoin(s, buf);
-	}
+	fd = open("test", O_RDONLY);
+	r = (read(fd, buf, 550));
+	buf[r] = '\0';
+	s = ft_strdup(buf);
 	if (valid(&s) < 0)
 	{
 		ft_putstr("0\n");
 		return (-1);
 	}
-    head = maintet(s);
-//    ft_putstr(s);
+	ft_putstr(s);
+	head = maintet(s);
+	while (head->next != NULL)
+	{
+		printf("%s\n", head->content);
+		head = head->next;
+	}
 	return (0);
 }
 

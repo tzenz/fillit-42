@@ -19,21 +19,26 @@ tetrimino	*maintet(char *s)
 	tetrimino	*tmp;
 	int			i;
 	int 		count;
+	int 		stop;
 
 	i = 0;
-	count = 0;
-	tmp = head;
-//	while (s[i])
-//	{
+	count = 1;
+	head = NULL;
+	stop = ft_strlen(s);
+	while (s[i] && i < stop)
+	{
 		if (!head)
-			tmp = ft_newtet(ft_add(&s[i]), count);
+		{
+			head = ft_newtet(ft_add(&s[i]), count);
+			tmp = head;
+		}
 		else
-			tmp->next = ft_newtet(ft_add(&s[i]), count);
-		ft_putstr(tmp->content);
-		tmp = tmp->next;
-		count++;
+		{
+			tmp->next = ft_newtet(ft_add(&s[i]), ++count);
+			tmp = tmp->next;
+		}
 		i += 21;
-//	}
+	}
 	return (head);
 }
 
@@ -60,7 +65,7 @@ char   *ft_add(char *s)
 	j = 0;
 	i = 0;
 	sim = 0;
-	while (s[i])
+	while (s[i] && i < 20)
 	{
 		while (s[i] && s[i] != '\n')
 		{
@@ -80,6 +85,7 @@ char   *ft_add(char *s)
 				i++;
 			}
 			buf[j++] = '\n';
+			sim = 0;
 		}
 		i++;
 	}
@@ -97,4 +103,32 @@ char   *ft_add(char *s)
 		i++;
 	}
 	buf[j++] = '\n';
+}
+
+ tetrimino	*maintet(char *s)
+{
+	tetrimino	*head;
+	tetrimino	*tmp;
+	int			i;
+	int 		count;
+	int 		stop;
+
+	i = 0;
+	count = 1;
+	head = NULL;
+	stop = ft_strlen(s);
+	while (s[i] && i < stop)
+	{
+		if (!head)
+		{
+			head = ft_newtet(ft_add(&s[i]), count);
+			tmp = head;
+		} else
+		{
+			tmp->next = ft_newtet(ft_add(&s[i]), ++count);
+			tmp = tmp->next;
+		}
+		i += 21;
+	}
+	return (head);
 }*/
