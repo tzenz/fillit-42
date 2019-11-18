@@ -21,27 +21,34 @@ int		main(void)
 	int		r;
 	tetrimino *head;
 
-	fd = open("testone", O_RDONLY);
+	fd = open("test", O_RDONLY);
 	r = (read(fd, buf, 550));
 	buf[r] = '\0';
 	s = ft_strdup(buf);
+
 	if (valid(&s) < 0)
 	{
 		ft_putstr("0\n");
 		return (-1);
 	}
-//	ft_putstr(s);
 	head = maintet(s);
 	while (head->next != NULL)
 	{
-		printf("%s\n, x - %zu y - %zu\n", head->content, head->x, head->y);
+		printf("%s\nx - %zu y - %zu\n", *head->content, head->x, head->y);
 		head = head->next;
 	}
-	printf("%s\n, x - %zu y - %zu\n", head->content, head->x, head->y);
+	printf("%s\nx - %zu y - %zu\n", *head->content, head->x, head->y);
 	return (0);
 }
 
 /*
+	while (head->next != NULL)
+	{
+		printf("%s\nx - %zu y - %zu\n", *head->content, head->x, head->y);
+		head = head->next;
+	}
+	printf("%s\nx - %zu y - %zu\n", *head->content, head->x, head->y);
+
  tetrimino	*maintet(char *s)
 {
 	tetrimino	*head;
