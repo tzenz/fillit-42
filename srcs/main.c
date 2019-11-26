@@ -19,26 +19,24 @@ int		main(void)
 	char	buf[550];
 	int		fd;
 	int		r;
-	tetrimino *head;
+	t_tet 	*head;
 
-	fd = open("test", O_RDONLY);
+	fd = open("testone", O_RDONLY);
 	r = (read(fd, buf, 550));
 	buf[r] = '\0';
 	s = ft_strdup(buf);
-
 	if (valid(&s) < 0)
 	{
 		ft_putstr("0\n");
 		return (-1);
 	}
 	head = maintet(s);
-	while (head->next != NULL)
+	algm(head);
+/*	while (head != NULL)
 	{
-		ft_putsstr(head->content);
+		ft_putstr(head->content);
 		printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
 		head = head->next;
-	}
-	ft_putsstr(head->content);
-	printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
+	}*/
 	return (0);
 }

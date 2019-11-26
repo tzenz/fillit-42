@@ -13,28 +13,26 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-tetrimino		*maintet(char *s)
+t_tet		*maintet(char *s)
 {
-	tetrimino	*head;
-	tetrimino	*tmp;
+	t_tet	*head;
+	t_tet	*tmp;
 	int			i;
 	int			c;
-	int			stop;
 
 	i = 0;
 	c = 1;
 	head = NULL;
-	stop = ft_strlen(s);
-	while (s[i] && i < stop)
+	while (s[i] && i < ft_strlen(s))
 	{
 		if (!head)
 		{
-			head = ft_newtet(ft_add(&s[i]), ft_x(&s[i]), ft_y(&s[i]), c++);
+			head = ft_newtet(ft_add(&s[i]), ft_y(&s[i]), ft_x(&s[i]), c++);
 			tmp = head;
 		}
 		else
 		{
-			tmp->next = ft_newtet(ft_add(&s[i]), ft_x(&s[i]), ft_y(&s[i]), c++);
+			tmp->next = ft_newtet(ft_add(&s[i]), ft_y(&s[i]), ft_x(&s[i]), c++);
 			tmp = tmp->next;
 		}
 		i += 21;
@@ -42,16 +40,13 @@ tetrimino		*maintet(char *s)
 	return (head);
 }
 
-char			**ft_add(char *s)
+char			*ft_add(char *s)
 {
-	char		**ho;
 	char		*buf;
 	int			sim;
 
 	buf = ft_strnew(10);
-	ho = ft_strsplit(ft_add_2(s, buf, sim), '\n');
-	free(buf);
-	return (ho);
+	return (ft_add_2(s, buf, sim));
 }
 
 char			*ft_add_2(char *s, char *buf, int sim)
@@ -74,7 +69,6 @@ char			*ft_add_2(char *s, char *buf, int sim)
 				i++;
 			}
 			buf[j++] = '\n';
-			sim = 0;
 			i++;
 		}
 		else
@@ -83,15 +77,43 @@ char			*ft_add_2(char *s, char *buf, int sim)
 	return (buf);
 }
 
-tetrimino		*ft_newtet(char **s, int x, int y, int numb)
+t_tet		*ft_newtet(char *s, int x, int y, int numb)
 {
-	tetrimino	*tmp;
+	t_tet	*tmp;
 
-	tmp = (tetrimino*)ft_memalloc(sizeof(tetrimino));
+	tmp = (t_tet*)ft_memalloc(sizeof(t_tet));
 	tmp->numb = numb;
 	tmp->x = x;
 	tmp->y = y;
+	tmp->count = 0;
 	tmp->content = s;
 	tmp->next = NULL;
 	return (tmp);
+}
+
+int			prover(char *s)
+{
+	int		stop;
+	int		i;
+
+	i = 0;
+	stop = 19;
+	while (s[i])
+	{
+		if (s[i] == '\n' && s[i + 1] == '\n')
+		{
+			if (i != stop)
+				return (-1);
+			stop += 21;
+		}
+		i++;
+	}
+	if (s[i] == '\0')
+	{
+		if (s[i - 1] != '.' && s[i - 1] != '#')
+			return (-1);
+		if (i != stop)
+			return (-1);
+	}
+	return (0);
 }
