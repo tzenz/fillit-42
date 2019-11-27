@@ -34,9 +34,10 @@ typedef struct			s_tetrimino
     size_t				numb;
     size_t				x;
     size_t				y;
+    size_t				count;
     char				**content;
     struct s_tetrimino	*next;
-}						tetrimino;
+}						t_tet;
 
 typedef struct				s_get_next_line
 {
@@ -45,17 +46,25 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
+void				ft_write(char **field, char **content);
+void				algm(t_tet *head);
+
+char        		**addfield(char **beforefield, int numb);
+int					plus(t_tet *tmp);
+
 int					ft_x(char *s);
 int					ft_y(char *s);
+int					prover(char *s);
 
-tetrimino			*maintet(char *s);
-tetrimino  			 *ft_newtet(char **s, int	x, int y, int	numb);
+t_tet				*maintet(char *s);
+t_tet  				 *ft_newtet(char **s, int x, int y, int numb);
+int					ft_checklen(char *s);
 char   				**ft_add(char *s);
 char				*ft_add_2(char *s, char *buf, int sim);
 int					ft_search(char *s);
 
 int					valid(char **s);
-int					vone(char *s, int *n, int *count);
+int					vone(char *s, int *count);
 int					ft_one(char *s, int i, int *m, int *count);
 int					vtwo(char *s, char sim);
 void				ft_two(char *s, int *i, int *count, char *sim);

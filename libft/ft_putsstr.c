@@ -17,7 +17,6 @@ void	ft_putsstr(char **s)
     while (*s)
     {
         ft_putstr(*s);
-        ft_putchar('\n');
         s++;
     }
 }

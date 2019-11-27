@@ -40,13 +40,15 @@ t_tet		*maintet(char *s)
 	return (head);
 }
 
-char			*ft_add(char *s)
+char			**ft_add(char *s)
 {
+	char 		**ho;
 	char		*buf;
 	int			sim;
 
 	buf = ft_strnew(10);
-	return (ft_add_2(s, buf, sim));
+	ho = ft_strsplit(ft_add_2(s, buf, sim), '\n');
+	return (ho);
 }
 
 char			*ft_add_2(char *s, char *buf, int sim)
@@ -77,7 +79,7 @@ char			*ft_add_2(char *s, char *buf, int sim)
 	return (buf);
 }
 
-t_tet		*ft_newtet(char *s, int x, int y, int numb)
+t_tet		*ft_newtet(char **s, int x, int y, int numb)
 {
 	t_tet	*tmp;
 

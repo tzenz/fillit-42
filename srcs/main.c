@@ -34,8 +34,8 @@ int		main(void)
 	algm(head);
 /*	while (head != NULL)
 	{
-		ft_putstr(head->content);
-		printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
+		ft_putsstr(head->content);
+//		printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
 		head = head->next;
 	}*/
 	return (0);

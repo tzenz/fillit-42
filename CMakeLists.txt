@@ -64,4 +64,4 @@ add_executable(fillit
         libft/ft_strtrim.c
         libft/ft_tolower.c
         libft/ft_toupper.c
-        libft/libft.h fillit.c main.c libft/ft_putsstr.c srcs/main.c srcs/part1.c srcs/valid.c srcs/valid2.c srcs/addline.c srcs/reason.c srcs/newtet.c srcs/searchxy.c)
+        libft/libft.h fillit.c main.c libft/ft_putsstr.c srcs/main.c srcs/part1.c srcs/valid.c srcs/valid2.c srcs/addline.c srcs/reason.c srcs/newtet.c srcs/searchxy.c srcs/head.c srcs/algm.c srcs/algm2.c)

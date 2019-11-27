@@ -13,28 +13,29 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-char        *addfield(char *beforefield, int numb)
+char        **addfield(char **beforefield, int numb)
 {
-	char	*field;
+	char 	**field;
+	char	*buf;
 	int		ins;
 	int		i;
 	int 	j;
 
 	i = 0;
 	ins = numb;
-	field = ft_strnew(numb * (numb + 1));
+	buf = ft_strnew(numb * (numb + 1));
 	while (i < numb * (numb + 1))
 	{
 		if (i == ins)
 		{
-			field[i] = '\n';
+			buf[i] = '\n';
 			ins += numb + 1;
 		}
 		else
-			field[i] = '.';
+			buf[i] = '.';
 		i++;
 	}
-	if (beforefield)
+/*	if (beforefield)
 	{
 		i = 0;
 		j = 0;
@@ -46,7 +47,9 @@ char        *addfield(char *beforefield, int numb)
 			else
 				j++;
 		}
-	}
+	}*/
+	field = ft_strsplit(buf, '\n');
+	free(buf);
 	return (field);
 }
 
