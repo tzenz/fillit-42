@@ -40,7 +40,7 @@ int		ft_x(char *s)
 	flag = 0;
 	while (i < 20)
 	{
-		while (i < 20 && s[i] != '\n')
+		while (i < 20 && s[i] != '\n' && s[i])
 		{
 			if (s[i] != '.' && s[i] != '\0' && !flag)
 			{
@@ -68,7 +68,7 @@ int		ft_y(char *s)
 	{
 		if (ft_search(&s[i]))
 		{
-			while (i < 20 && s[i] != '\n')
+			while (i < 20 && s[i] != '\n' && s[i])
 			{
 				if (s[i] != '.' || (s[i + 5] != '.' && i + 5 < 20))
 					y++;

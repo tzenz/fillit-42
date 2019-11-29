@@ -46,7 +46,9 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-void				ft_write(char **field, char **content);
+void				ft_humhum(char **field, char **content, int n, int m);
+int					ft_cm(char **content, int x, int y, char **field);
+void				ft_write(char **field, int x, int y, t_tet *tmp);
 void				algm(t_tet *head);
 
 char        		**addfield(char **beforefield, int numb);
@@ -57,7 +59,7 @@ int					ft_y(char *s);
 int					prover(char *s);
 
 t_tet				*maintet(char *s);
-t_tet  				 *ft_newtet(char **s, int x, int y, int numb);
+t_tet  				*ft_newtet(char **s, int x, int y, int numb);
 int					ft_checklen(char *s);
 char   				**ft_add(char *s);
 char				*ft_add_2(char *s, char *buf, int sim);
