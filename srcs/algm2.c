@@ -59,3 +59,56 @@ int			plus(t_tet *tmp)
 		tmp = tmp->next;
 	return (tmp->numb);
 }
+
+void			ft_humhum(char **field, char **content, int m, int n)
+{
+	int 		count;
+	int 		i;
+	int 		j;
+
+	i = 0;
+	j = 0;
+	count = n;
+	while (content[i])
+	{
+		if (content[i][j] != '\n' && content[i][j] != '.')
+			field[m][n++] = content[i][j++];
+		else if (content[i][j++] == '.')
+			n++;
+		else
+		{
+			m++;
+			i++;
+			n = count;
+			j = 0;
+		}
+	}
+}
+
+int				fc1(char **field, t_tet *head)
+{
+	t_tet		*tmp;
+
+	tmp = head;
+	while (tmp != NULL)
+	{
+		ft_write(field, tmp->x, tmp->y, tmp->content);
+		tmp = tmp->next;
+	}
+	return (-1);
+}
+
+void			algm(t_tet *head)
+{
+	t_tet		*tmp;
+	char		**field;
+	int 		i;
+
+	field = NULL;
+	tmp = head;
+	field = addfield(field, 6);
+	fc1(field, tmp);
+//	while ((fc1(field, tmp)) > 0)
+//		addfield(field, plus(tmp) + 1);
+	ft_putsstr(field);
+}

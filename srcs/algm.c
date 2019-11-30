@@ -13,126 +13,95 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-void			ft_write(char **field, int x, int y, t_tet *tmp)
+int			ft_write(char **field, int x, int y, char **content)
 {
-	int i;
-	int j;
-	int n;
-	int m;
+	int 	i;
+	int 	j;
+	int 	m;
+	int 	n;
 
 	i = 0;
 	j = 0;
-	n = 0;
 	m = 0;
-	if (ft_cm(tmp->content, x, y, field))
-	{
-//		printf("~~");
-	}
-}
-
-int				ft_cm(char **content, int x, int y, char **field)
-{
-	int 		count;
-	int 		rescount;
-	int 		i;
-	int 		j;
-	int 		n;
-	int 		m;
-
-	i = 0;
-	j = 0;
 	n = 0;
-	m = 0;
-	rescount = 0;
-	while (field[m][n])
+	while (field[m] && field[m][n])
 	{
-		while ((content[i][j] != field[m][n] && field[m][n] == '.' && content[i][j]) || (content[i][j] != field[m][n] && content[i][j] == '.'))
+		if (x == ft_countx(content, m, &n, field) && y == ft_county(content, m, n, field))
 		{
-			count = m;
-			i = 0;
-			j++;
-			n++;
-			if (j == x)
-			{
-				ft_humhum(field, content, n - j, m);
-				return (1);
-			}
+			ft_humhum(field, content, m, n);
+			return (1);
 		}
-		j = 0;
 		if (field[m][n] == '\n')
 		{
-			n = 0;
 			m++;
-		}
-		else
+			n = 0;
+		} else
 			n++;
 	}
 	return (0);
 }
 
-void			ft_humhum(char **field, char **content, int n, int m)
+int				ft_county(char **content, int m, int n, char **field)
 {
-	int 		count;
 	int 		i;
 	int 		j;
-//	int 		m;
 
 	i = 0;
 	j = 0;
-//	m = 0;
-	count = n;
-//	ft_putsstr(field);
-//	ft_putsstr(content);
-//	printf("+++++++ n - %d, m - %d\n", n, m);
-	while (content[i] != NULL)
+	while ((content[i][0] != field[m][n] && content[i][0] == '.') ||
+			(content[i][0] != field[m][n] && field[m][n] == '.') ||
+			(content[i][0] == '.' && field[m][n] == '.'))
 	{
-		if (content[i][j] != '\n')
+		i++;
+		m++;
+		if (i == ft_countptr(content))
+			return (i);
+	}
+	return (0);
+}
+
+
+int				ft_countx(char **content, int m, int *n, char **field)
+{
+	int 		j;
+	int 		stop;
+
+	j = 0;
+	while (field[m][*n] != '\n')
+	{
+		while ((content[0][j] != field[m][*n] && content[0][j] == '.') ||
+			   (content[0][j] != field[m][*n] && field[m][*n] == '.') ||
+			   (content[0][j] == '.' && field[m][*n] == '.'))
 		{
-			field[m][n++] = content[i][j++];
-		}
-		else if (content[i][j] == '.')
 			j++;
-		else
-		{
-			m++;
-			i++;
-			n = count;
-			j = 0;
+			*n += 1;
+			if (j == (ft_strlen(content[0]) - 1) && ft_countptr(content) == ft_county(content, m, *n, field))
+			{
+//				ft_putsstr(field);
+
+				stop = ft_countptr(content);
+				printf("ptr - %d\n", stop);
+				stop = ft_county(content, m, *n, field);
+				printf("y - %d\n", stop);
+
+				*n = *n - j;
+				return (j);
+			}
 		}
+		*n = (*n - j) + 1;
+		j = 0;
 	}
+	return (0);
 }
 
-int				fc1(char **field, t_tet *head)
-{
-	t_tet		*superhead;
-	t_tet		*tmp;
-	int 		m;
-	int 		n;
+//int				ft_comp(char **content, char )
 
-	m = 0;
-	n = 5;
-	tmp = head;
-	superhead = head;
-//	ft_putnbr(ft_strlen(*field));
-	while (tmp != NULL)
-	{
-		ft_write(field, tmp->x, tmp->y, tmp);
-		tmp = tmp->next;
-	}
-	return (-1);
-}
-
-void			algm(t_tet *head)
+int				ft_countptr(char **s)
 {
-	t_tet		*tmp;
-	char		**field;
 	int 		i;
 
-	field = NULL;
-	tmp = head;
-	field = addfield(field, 7);
-	fc1(field, tmp);
-//	while ((fc1(field, tmp)) > 0)
-//		addfield(field, plus(tmp) + 1);
-	ft_putsstr(field);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

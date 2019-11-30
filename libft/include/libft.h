@@ -46,9 +46,12 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-void				ft_humhum(char **field, char **content, int n, int m);
-int					ft_cm(char **content, int x, int y, char **field);
-void				ft_write(char **field, int x, int y, t_tet *tmp);
+int					ft_countptr(char **s);
+
+int					ft_countx(char **content, int m, int *n, char **field);
+int					ft_county(char **content, int m, int n, char **field);
+void				ft_humhum(char **field, char **content, int m, int n);
+int					ft_write(char **field, int x, int y, char **content);
 void				algm(t_tet *head);
 
 char        		**addfield(char **beforefield, int numb);
