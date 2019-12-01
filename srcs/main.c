@@ -35,7 +35,7 @@ int		main(void)
 /*	while (head != NULL)
 	{
 		ft_putsstr(head->content);
-		printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
+		//		printf("x - %zu y - %zu numb - %zu\n", head->x, head->y, head->numb);
 		head = head->next;
 	}*/
 	return (0);
@@ -77,48 +77,86 @@ int				ft_county(char **content, int m, int n, char **field)
 
 	i = 0;
 	j = 0;
-	while ((content[i][j] != field[m][n] && content[i][j] == '.') ||
-			(content[i][j] != field[m][n] && field[m][n] == '.') ||
-			(content[i][j] == '.' && field[m][n] == '.'))
+	while ((content[i][0] != field[m][n] && content[i][0] == '.') ||
+			(content[i][0] != field[m][n] && field[m][n] == '.') ||
+			(content[i][0] == '.' && field[m][n] == '.'))
 	{
+//		printf("cont - %c  field - %c  -   i - %d  m - %d n - %d\n", content[i][0], field[m][n], i, m, n);
+		if (i + 1 == ft_countptr(content))
+			return (i + 1);
+
 		i++;
-		j++;
-		if (j == 3)
-			return (j);
+		m++;
 	}
 	return (0);
 }
 
 
-int				ft_countx(char **content, int x, int *n, char *field)
+int				ft_countx(char **content, int m, int *n, char **field)
 {
 	int 		j;
+	int 		stop;
 
 	j = 0;
-//	printf(" -JJJ- ");
-	while (field[*n] != '\n')
+	while (field[m][*n] != '\n' && field[m][*n])
 	{
-		while ((content[0][j] != field[*n] && content[0][j] == '.') ||
-			   (content[0][j] != field[*n] && field[*n] == '.') ||
-			   (content[0][j] == '.' && field[*n] == '.'))
+		while ((content[0][j] != field[m][*n] && content[0][j] == '.') ||
+			   (content[0][j] != field[m][*n] && field[m][*n] == '.') ||
+			   (content[0][j] == '.' && field[m][*n] == '.'))
 		{
-//			printf("con - %c field - %c\n", content[0][j], field[*n]);
-//			printf("n - %d j - %d\n", *n, j);
-			j++;
-			*n += 1;
-
-			if (j == x)
+//			printf("j - %d  n - %d\n", j ,*n);
+			if (j + 1 == (ft_strlen(content[0])) && field[m][*n] != '\n')
 			{
-//				ft_putnbr(j);
-//				ft_putchar('\n');
-				*n = *n - j;
-				return (j);
-			}
+				if (ft_countptr(content) == ft_county(content, m, *n - j, field))
+				{
+					*n = *n - j;
+					return (j + 1);
+				}
+				else
+				{
+					j++;
+					*n += 1;
+				}
+//				printf("in if      j - %d  n - %d\n", j ,*n);
+//				ft_putsstr(field);
+
+				stop = ft_countptr(content);
+				printf("ptr - %d\n", stop);
+				stop = ft_county(content, m, *n, field);
+				printf("y - %d\n", stop);
 		}
-		*n = (*n - j) + 1;
-		j = 0;
+		j++;
+		*n += 1;
 	}
-	return (0);
+	*n = (*n - j) + 1;
+	j = 0;
+}
+return (0);
 }
  && ft_countptr(content) == ft_county(content, m, *n, field)
  */
+
+/*int				ft_county(char **content, int m, int n, char **field)
+{
+	int 		i;
+	int 		j;
+
+	i = 0;
+	j = 0;
+	while ((content[i][j] != field[m][n] && content[i][j] == '.') ||
+		   (content[i][j] != field[m][n] && field[m][n] == '.') ||
+		   (content[i][j] == '.' && field[m][n] == '.'))
+	{
+		if (i + 1 == ft_countptr(content))
+		{
+//			ft_putsstr(content);
+			if (j + 1 == ft_countptr(content))
+				return (j + 1);
+			i = 0;
+			j++;
+		}
+		i++;
+		m++;
+	}
+	return (0);
+}*/

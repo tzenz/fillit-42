@@ -48,7 +48,7 @@ char        **addfield(char **beforefield, int numb)
 				j++;
 		}
 	}*/
-	field = ft_strsplit(buf, '\n');
+	field = ft_strsplitc(buf, '\n');
 	free(buf);
 	return (field);
 }
@@ -69,9 +69,12 @@ void			ft_humhum(char **field, char **content, int m, int n)
 	i = 0;
 	j = 0;
 	count = n;
+//	printf("HUMHUM m - %d  n - %d\n", m , n);
+//	ft_putsstr(content);
 	while (content[i])
 	{
-		if (content[i][j] != '\n' && content[i][j] != '.')
+//		ft_putsstr(field);
+		if (content[i][j] != '.' && content[i][j])
 			field[m][n++] = content[i][j++];
 		else if (content[i][j++] == '.')
 			n++;
