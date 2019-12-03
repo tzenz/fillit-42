@@ -24,7 +24,7 @@ int			valid(char **s)
 	if (vone(*s, &count) < 0 || prover(*s) < 0)
 		return (-1);
 	sim = 'A';
-	while (s[0][i] && i < ft_strlen(&s[0][0]))
+	while (s[0][i] && i < (int)ft_strlen(&s[0][0]))
 	{
 		if (vtwo(&s[0][i], sim++) < 0)
 			return (-1);

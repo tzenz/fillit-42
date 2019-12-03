@@ -6,7 +6,7 @@
 #    By: tzenz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/12 18:10:07 by tzenz             #+#    #+#              #
-#    Updated: 2019/12/03 12:14:44 by tzenz            ###   ########.fr        #
+#    Updated: 2019/12/03 14:02:02 by tzenz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror -I include/
 
-SRC =   ft_countptr.c\
+SRC =   ft_pow.c\
+		ft_sqrt.c\
+		ft_countptr.c\
 		ft_strtrims.c\
         ft_putsstr.c\
         get_next_line.c\

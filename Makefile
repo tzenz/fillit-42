@@ -6,13 +6,13 @@
 #    By: tzenz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/12 18:25:28 by tzenz             #+#    #+#              #
-#    Updated: 2019/10/16 10:38:43 by tzenz            ###   ########.fr        #
+#    Updated: 2019/12/03 16:50:47 by tzenz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 
-SRC = srcs/main.c\
+SRC = srcs/*.c\
       libft/libft.a\
 
 FLAGS = -Wall -Wextra -Werror

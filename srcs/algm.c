@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-int				ft_write(char **field, int x, int y, char **content)
+int				ft_write(char **field, int x, char **content)
 {
 	int			m;
 	int			n;
@@ -46,10 +46,10 @@ int				ft_countx(char **content, int m, int *n, char **field)
 	while (field[m][*n] != '\n' && field[m][*n])
 	{
 		while ((content[0][j] != field[m][*n] && content[0][j] == '.') ||
-			   (content[0][j] != field[m][*n] && field[m][*n] == '.') ||
-			   (content[0][j] == '.' && field[m][*n] == '.'))
+				(content[0][j] != field[m][*n] && field[m][*n] == '.') ||
+				(content[0][j] == '.' && field[m][*n] == '.'))
 		{
-			if (j + 1 == (ft_strlen(content[0])) && field[m][*n] != '\n')
+			if (j + 1 == (int)(ft_strlen(content[0])) && field[m][*n] != '\n')
 			{
 				if (ft_county(content, m, *n - j, field))
 				{
@@ -79,24 +79,50 @@ int				ft_county(char **content, int m, int n, char **field)
 			(content[i][j] != field[m][n] && field[m][n] == '.') ||
 			(content[i][j] == '.' && field[m][n] == '.'))
 	{
-		i++;
 		m++;
-		if (i == ft_countptr(content))
+		if (++i == ft_countptr(content))
 		{
-			if (j + 1 == ft_strlen(*content))
+			if (j + 1 == (int)ft_strlen(*content))
 				return (j + 1);
 			i = 0;
 			m = count;
 			n++;
 			j++;
 		}
+		if (m == ft_countptr(field))
+			return (0);
 	}
 	return (0);
 }
 
+void			ft_humhum(char **field, char **content, int m, int n)
+{
+	int			count;
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	count = n;
+	while (content[i])
+	{
+		if (content[i][j] != '.' && content[i][j])
+			field[m][n++] = content[i][j++];
+		else if (content[i][j++] == '.')
+			n++;
+		else
+		{
+			m++;
+			i++;
+			n = count;
+			j = 0;
+		}
+	}
+}
+
 int				ft_s(int m, int n, int x, char **field)
 {
-	int 		count;
+	int			count;
 
 	count = 0;
 	n = n + x;

@@ -17,13 +17,13 @@ t_tet		*maintet(char *s)
 {
 	t_tet	*head;
 	t_tet	*tmp;
-	int			i;
-	int			c;
+	int		i;
+	int		c;
 
 	i = 0;
 	c = 1;
 	head = NULL;
-	while (s[i] && i < ft_strlen(s))
+	while (s[i] && i < (int)ft_strlen(s))
 	{
 		if (!head)
 		{
@@ -46,6 +46,7 @@ char			**ft_add(char *s)
 	char		*buf;
 	int			sim;
 
+	sim = 0;
 	buf = ft_strnew(10);
 	ho = ft_strsplit(ft_add_2(s, buf, sim), '\n');
 	free(buf);
@@ -66,9 +67,9 @@ char			*ft_add_2(char *s, char *buf, int sim)
 		{
 			while (s[i] && s[i] != '\n')
 			{
-				if (s[i] == sim || s[i + 5] == sim || s[i + 10] == sim)
+				if (s[i + 5] == sim || ((s[i + 10] == sim) && i + 10 < 20))
 					buf[j++] = s[i];
-				else if (s[i - 5] == sim || s[i - 10] == sim)
+				else if (s[i] == sim || s[i - 5] == sim || s[i - 10] == sim)
 					buf[j++] = s[i];
 				i++;
 			}
@@ -81,9 +82,9 @@ char			*ft_add_2(char *s, char *buf, int sim)
 	return (buf);
 }
 
-t_tet		*ft_newtet(char **s, int x, int y, int numb)
+t_tet			*ft_newtet(char **s, int x, int y, int numb)
 {
-	t_tet	*tmp;
+	t_tet		*tmp;
 
 	tmp = (t_tet*)ft_memalloc(sizeof(t_tet));
 	tmp->numb = numb;
