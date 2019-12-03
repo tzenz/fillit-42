@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsplit.c                                      :+:      :+:    :+:   */
+/*   ft_strsplitc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tzenz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 11:19:12 by tzenz             #+#    #+#             */
-/*   Updated: 2019/09/18 18:14:22 by tzenz            ###   ########.fr       */
+/*   Created: 2019/12/01 13:29:54 by tzenz             #+#    #+#             */
+/*   Updated: 2019/12/01 13:35:21 by tzenz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/libft.h"
+#include "../libft/include/libft.h"
 
 static	int	ft_words(char const *s, char c)
 {
@@ -48,16 +48,16 @@ static	int	ft_len(char const *s, char c)
 	return (len);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char		**ft_strsplitc(char const *s, char c)
 {
+	char	**str;
 	int		i;
 	int		j;
 	int		l;
-	char	**str;
 
 	if (!s)
 		return (NULL);
-	if (!(str = (char **)ft_memalloc(sizeof(char **) * (ft_words(s, c) + 2))))
+	if (!(str = (char **)ft_memalloc(sizeof(char **) * (ft_words(s, c) + 1))))
 		return (NULL);
 	i = -1;
 	j = 0;

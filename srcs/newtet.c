@@ -48,6 +48,8 @@ char			**ft_add(char *s)
 
 	buf = ft_strnew(10);
 	ho = ft_strsplit(ft_add_2(s, buf, sim), '\n');
+	free(buf);
+	buf = NULL;
 	return (ho);
 }
 

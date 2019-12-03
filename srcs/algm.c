@@ -13,10 +13,10 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-int			ft_write(char **field, int x, int y, char **content)
+int				ft_write(char **field, int x, int y, char **content)
 {
-	int 	m;
-	int 	n;
+	int			m;
+	int			n;
 
 	m = 0;
 	n = 0;
@@ -25,7 +25,7 @@ int			ft_write(char **field, int x, int y, char **content)
 		if (x == ft_countx(content, m, &n, field))
 		{
 			ft_humhum(field, content, m, n);
-			return (1);
+			return (ft_s(m, n, x, field));
 		}
 		if (field[m][n] == '\n')
 		{
@@ -35,53 +35,12 @@ int			ft_write(char **field, int x, int y, char **content)
 		else
 			n++;
 	}
-	return (0);
+	return (-1);
 }
-
-int				ft_county(char **content, int m, int n, char **field)
-{
-	int 		i;
-	int 		j;
-	int 		count;
-
-	count = m;
-	i = 0;
-	j = 0;
-//	ft_putsstr(content);
-	ft_putchar(':');
-	while ((content[i][j] != field[m][n] && content[i][j] == '.') ||
-			(content[i][j] != field[m][n] && field[m][n] == '.') ||
-			(content[i][j] == '.' && field[m][n] == '.'))
-	{
-		i++;
-		m++;
-		ft_putsstr(content);
-		ft_putchar('\n');
-		printf("i - %d\n", i);
-		printf("j - %d\n", j);
-		printf("m - %d\n", m);
-		printf("n - %d\n", n);
-		printf("countptr - %d\n", ft_countptr(content));
-		if (i == ft_countptr(content))
-		{
-			printf(" ----- \n");
-			if (j + 1 == ft_strlen(*content))
-			{
-				return (j + 1);
-			}
-			i = 0;
-			m = count;
-			n++;
-			j++;
-		}
-	}
-	return (0);
-}
-
 
 int				ft_countx(char **content, int m, int *n, char **field)
 {
-	int 		j;
+	int			j;
 
 	j = 0;
 	while (field[m][*n] != '\n' && field[m][*n])
@@ -92,7 +51,6 @@ int				ft_countx(char **content, int m, int *n, char **field)
 		{
 			if (j + 1 == (ft_strlen(content[0])) && field[m][*n] != '\n')
 			{
-//				printf("j - %d  n - %d\n", j ,*n);
 				if (ft_county(content, m, *n - j, field))
 				{
 					*n = *n - j;
@@ -108,12 +66,54 @@ int				ft_countx(char **content, int m, int *n, char **field)
 	return (0);
 }
 
-int				ft_countptr(char **s)
+int				ft_county(char **content, int m, int n, char **field)
 {
-	int 		i;
+	int			i;
+	int			j;
+	int			count;
 
+	count = m;
 	i = 0;
-	while (s[i])
+	j = 0;
+	while ((content[i][j] != field[m][n] && content[i][j] == '.') ||
+			(content[i][j] != field[m][n] && field[m][n] == '.') ||
+			(content[i][j] == '.' && field[m][n] == '.'))
+	{
 		i++;
-	return (i);
+		m++;
+		if (i == ft_countptr(content))
+		{
+			if (j + 1 == ft_strlen(*content))
+				return (j + 1);
+			i = 0;
+			m = count;
+			n++;
+			j++;
+		}
+	}
+	return (0);
+}
+
+int				ft_s(int m, int n, int x, char **field)
+{
+	int 		count;
+
+	count = 0;
+	n = n + x;
+	while (field[m][n] != '.' && field[m][n])
+	{
+		if (field[m][n] == '\n' && field[m + 1])
+			while (field[m][n] == '\n' && field[m + 1])
+			{
+				n = 0;
+				m++;
+			}
+		else
+			n++;
+	}
+	if (field[m][n - 1] == '.')
+		count++;
+	while (field[m][n++] == '.')
+		count++;
+	return (count > 4) ? 4 : count;
 }

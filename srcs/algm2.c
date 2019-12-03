@@ -50,12 +50,13 @@ char        **addfield(char **beforefield, int numb)
 	}*/
 	field = ft_strsplitc(buf, '\n');
 	free(buf);
+	buf = NULL;
 	return (field);
 }
 
 int			plus(t_tet *tmp)
 {
-	while (tmp->next != NULL)
+	while (tmp != NULL)
 		tmp = tmp->next;
 	return (tmp->numb);
 }
@@ -69,11 +70,8 @@ void			ft_humhum(char **field, char **content, int m, int n)
 	i = 0;
 	j = 0;
 	count = n;
-//	printf("HUMHUM m - %d  n - %d\n", m , n);
-//	ft_putsstr(content);
 	while (content[i])
 	{
-//		ft_putsstr(field);
 		if (content[i][j] != '.' && content[i][j])
 			field[m][n++] = content[i][j++];
 		else if (content[i][j++] == '.')
@@ -88,30 +86,57 @@ void			ft_humhum(char **field, char **content, int m, int n)
 	}
 }
 
-int				fc1(char **field, t_tet *head)
+void			fc1(int next, char **field, t_tet *head, t_tet *tmp)
 {
-	t_tet		*tmp;
+	int 		count;
 
-	tmp = head;
-	while (tmp != NULL)
+	count = 0;
+	if (tmp == NULL)
 	{
-		ft_write(field, tmp->x, tmp->y, tmp->content);
-		tmp = tmp->next;
+		tmp = head;
+		while (tmp->next != NULL)
+		{
+			if (tmp->count)
+				count++;
+			tmp = tmp->next;
+		}
+		printf("next - %d  count - %d  tmp->numb - %zu\n", next, count, tmp->numb);
+		if (++count == tmp->numb)
+			return;
+		else
+			fc1(next, field, head, (tmp = head));
 	}
-	return (-1);
+	else if (next == tmp->x && !tmp->count)
+	{
+		tmp->count++;
+		fc1(ft_write(field, tmp->x, tmp->y, tmp->content), field, head, tmp->next);
+	}
+	else
+		fc1(next, field, head, tmp->next);
 }
 
 void			algm(t_tet *head)
 {
-	t_tet		*tmp;
 	char		**field;
-	int 		i;
+	int 		next;
 
+	next = 1;
 	field = NULL;
-	tmp = head;
-	field = addfield(field, 6);
-	fc1(field, tmp);
-//	while ((fc1(field, tmp)) > 0)
-//		addfield(field, plus(tmp) + 1);
+	field = addfield(field, 5);
+	fc1(next, field, head, head);
 	ft_putsstr(field);
 }
+
+/*int			fc1(int next, char **field, t_tet *head, t_tet *tmp)
+{
+	if (next == tmp->x)
+	{
+		tmp->count++;
+		fc1(ft_write(field, tmp->x, tmp->y, tmp->content), field, head, tmp->next);
+	}
+	else if (tmp == NULL)
+		return (0);
+	else
+		fc1(tmp->x, field, head, tmp);
+	return (0);
+}*/

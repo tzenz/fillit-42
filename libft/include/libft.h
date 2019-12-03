@@ -48,6 +48,8 @@ typedef struct				s_get_next_line
 
 int					ft_countptr(char **s);
 
+
+int					ft_s(int m, int n, int x, char **field);
 int					ft_countx(char **content, int m, int *n, char **field);
 int					ft_county(char **content, int m, int n, char **field);
 void				ft_humhum(char **field, char **content, int m, int n);
@@ -74,7 +76,9 @@ int					ft_one(char *s, int i, int *m, int *count);
 int					vtwo(char *s, char sim);
 void				ft_two(char *s, int *i, int *count, char *sim);
 
+int					ft_countptr(char **s);
 char	            *ft_strtrims(char const *s);
+char				**ft_strsplitc(char const *s, char c);
 int					get_next_line(const int fd, char **line);
 void	            ft_putsstr(char **s);
 

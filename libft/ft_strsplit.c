@@ -50,14 +50,14 @@ static	int	ft_len(char const *s, char c)
 
 char		**ft_strsplit(char const *s, char c)
 {
+	char	**str;
 	int		i;
 	int		j;
 	int		l;
-	char	**str;
 
 	if (!s)
 		return (NULL);
-	if (!(str = (char **)ft_memalloc(sizeof(char **) * (ft_words(s, c) + 2))))
+	if (!(str = (char **)ft_memalloc(sizeof(char **) * (ft_words(s, c) + 1))))
 		return (NULL);
 	i = -1;
 	j = 0;
@@ -70,7 +70,6 @@ char		**ft_strsplit(char const *s, char c)
 			j++;
 		while (s[j] != c && s[j])
 			str[i][l++] = s[j++];
-		str[i][l++] = c;
 		str[i][l] = '\0';
 	}
 	str[i] = 0;
