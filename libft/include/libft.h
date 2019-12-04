@@ -46,19 +46,17 @@ typedef struct				s_get_next_line
 	struct s_get_next_line	*next;
 }							t_gnl;
 
-int					ft_countptr(char **s);
-
 
 int					ft_s(int m, int n, int x, char **field);
 int					ft_countx(char **content, int m, int *n, char **field);
 int					ft_county(char **content, int m, int n, char **field);
-int					ft_fieldlong(t_tet *head);
+int					ft_fieldlong(t_tet *head, int i);
 void				ft_humhum(char **field, char **content, int m, int n);
 int					ft_write(char **field, int x, char **content);
 void				algm(t_tet *head);
 
-char        		**addfield(int numb);
-int					plus(t_tet *tmp);
+char				**ft_fieldcopy(char **field, char **before);
+char        		**addfield(char **before, int numb);
 
 int					ft_x(char *s);
 int					ft_y(char *s);
@@ -77,8 +75,10 @@ int					ft_one(char *s, int i, int *m, int *count);
 int					vtwo(char *s, char sim);
 void				ft_two(char *s, int *i, int *count, char *sim);
 
+
 double				ft_pow(double num, int pow);
 double				ft_sqrt(double num);
+char				**ft_cpyptrn(char **field, char **before);
 int					ft_countptr(char **s);
 char	            *ft_strtrims(char const *s);
 char				**ft_strsplitc(char const *s, char c);

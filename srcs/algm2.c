@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-char        **addfield(int numb)
+char        **addfield(char **before, int numb)
 {
 	char 	**field;
 	char	buf[numb * (numb + 1)];
@@ -33,40 +33,14 @@ char        **addfield(int numb)
 			buf[i] = '.';
 		i++;
 	}
+	buf[i] = '\0';
 	field = ft_strsplitc(buf, '\n');
+	if (before)
+		field = ft_cpyptrn(field, before);
 	return (field);
 }
 
-void			fc1(char **field, t_tet *tmp)
-{
-	int 		count;
-
-	count = 0;
-	while (tmp != NULL)
-	{
-		if (ft_write(field, tmp->x, tmp->content) < 0)
-		{
-			printf ("-1");
-			return;
-		}
-		tmp = tmp->next;
-	}
-}
-
-void			algm(t_tet *head)
-{
-	char		**field;
-	int 		next;
-
-	next = 1;
-	field = NULL;
-	field = addfield(5);
-//	field = addfield(field, ft_fieldlong(head));
-	fc1(field, head);
-	ft_putsstr(field);
-}
-
-int				ft_fieldlong(t_tet *head)
+int				ft_fieldlong(t_tet *head, int i)
 {
 	int 		count;
 
@@ -78,9 +52,81 @@ int				ft_fieldlong(t_tet *head)
 	}
 	count *= 4;
 	if (ft_sqrt(count) * ft_sqrt(count) < count)
-		return (ft_sqrt(count) + 1);
+		return (ft_sqrt(count) + 1 + i);
 	else
-		return (ft_sqrt(count));
+		return (ft_sqrt(count) + i);
+}
+
+int				maxnumb(t_tet *head)
+{
+	int 		count;
+
+	count = 0;
+	while (head != NULL)
+	{
+		if (!head->count)
+			count++;
+		head = head->next;
+	}
+	return (count);
+}
+
+int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+{
+	int			count;
+	int 		random;
+
+	random = 4;
+	count = maxnumb(head);
+	while (tmp != NULL)
+	{
+		while (tmp != NULL)
+		{
+			if (tmp->x == next && !tmp->count)
+				break;
+
+			tmp = tmp->next;
+		}
+		if (!tmp)
+		{
+			random = (random - 1 < 1) ? 4 : random - 1;
+			next = random;
+			tmp = head;
+		}
+		printf("count - %d  numb - %zu  next - %d  tmp->count - %zu\n", count, tmp->numb, next, tmp->count);
+		if (tmp->x == next && !tmp->count)
+		{
+			if ((next = ft_write(field, tmp->x, tmp->content)) > 0)
+			{
+				count--;
+				tmp->count++;
+			}
+			else
+				return (-1);
+		}
+		tmp = head;
+		if (!count)
+			return (0);
+	}
+	return (0);
+}
+
+void			algm(t_tet *head)
+{
+	char		**field;
+	int 		count;
+
+	count = 1;
+	field = NULL;
+//	field = addfield(field, 6);
+//	fc1(field, 1, head, head);
+	field = addfield(field, ft_fieldlong(head, 0));
+	while (fc1(field, 1, head, head) < 0)
+	{
+		printf(" -- \n");
+		field = addfield(field, ft_fieldlong(head, count++));
+	}
+	ft_putsstr(field);
 }
 
 
@@ -113,45 +159,5 @@ int				ft_fieldlong(t_tet *head)
 	}
 	else
 		fc1(next, field, head, tmp->next);
-}
-  *
- void			fc1(int next, char **field, t_tet *head, t_tet *tmp)
-{
-	int 		count;
-
-	count = 0;
-	while (tmp != NULL)
-	{
-		if (ft_write(field, tmp->x, tmp->y, tmp->content) < 0)
-		{
-			printf ("-1");
-			return;
-		}
-		tmp = tmp->next;
-	}
-}
-
-  char        **addfield(char **beforefield, int numb)
-{
-	char 	**field;
-	char	buf[numb * (numb + 1)];
-	int		ins;
-	int		i;
-
-	i = 0;
-	ins = numb;
-	while (i < numb * (numb + 1))
-	{
-		if (i == ins)
-		{
-			buf[i] = '\n';
-			ins += numb + 1;
-		}
-		else
-			buf[i] = '.';
-		i++;
-	}
-	field = ft_strsplitc(buf, '\n');
-	return (field);
 }
  */

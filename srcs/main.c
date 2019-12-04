@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 	r = (read(fd, buf, 550));
 	buf[r] = '\0';
 	s = ft_strdup(buf);
-	if (valid(&s) < 0 && argc != 2)
+	if (valid(&s) < 0 || argc != 2)
 	{
 		ft_putstr("error\n");
 		exit (EXIT_SUCCESS);

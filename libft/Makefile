@@ -14,7 +14,8 @@ NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror -I include/
 
-SRC =   ft_pow.c\
+SRC =   ft_cpyptrn.c\
+        ft_pow.c\
 		ft_sqrt.c\
 		ft_countptr.c\
 		ft_strtrims.c\
