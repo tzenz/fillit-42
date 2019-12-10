@@ -91,6 +91,7 @@ t_tet			*ft_newtet(char **s, int x, int y, int numb)
 	tmp->x = x;
 	tmp->y = y;
 	tmp->count = 0;
+	tmp->cnt = 0;
 	tmp->content = s;
 	tmp->next = NULL;
 	return (tmp);
@@ -115,10 +116,16 @@ int			prover(char *s)
 	}
 	if (s[i] == '\0')
 	{
-		if (s[i - 1] != '.' && s[i - 1] != '#')
+		if (s[i - 2] != '.' && s[i - 2] != '#')
+		{
+
 			return (-1);
-		if (i != stop)
+		}
+		if (i != stop + 1)
+		{
+//			printf("i - %d  stop - %d\n", i, stop);
 			return (-1);
+		}
 	}
 	return (0);
 }

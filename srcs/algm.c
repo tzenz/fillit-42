@@ -13,7 +13,7 @@
 #include "../libft/include/libft.h"
 #include <stdio.h>
 
-int				ft_write(char **field, int x, char **content)
+int				ft_write(char **field, t_tet *tmp)
 {
 	int			m;
 	int			n;
@@ -22,11 +22,14 @@ int				ft_write(char **field, int x, char **content)
 	n = 0;
 	while (field[m] && field[m][n])
 	{
-		if (x == ft_countx(content, m, &n, field))
+		if (tmp->x == ft_countx(tmp->content, m, &n, field))
 		{
-			ft_humhum(field, content, m, n);
-			return (ft_s(m, n, x, field));
+			ft_humhum(field, tmp->content, m, n);
+			tmp->count++;
+			return (ft_s(m, n, tmp->x, field));
 		}
+		else if (ft_countx(tmp->content, m, &n, field) == -1)
+			return (-1);
 		if (field[m][n] == '\n')
 		{
 			m++;
@@ -35,11 +38,12 @@ int				ft_write(char **field, int x, char **content)
 		else
 			n++;
 	}
-	return (-1);
+	return (-2);
 }
 
 int				ft_countx(char **content, int m, int *n, char **field)
 {
+	int 		count;
 	int			j;
 
 	j = 0;
@@ -51,10 +55,10 @@ int				ft_countx(char **content, int m, int *n, char **field)
 		{
 			if (j + 1 == (int)(ft_strlen(content[0])) && field[m][*n] != '\n')
 			{
-				if (ft_county(content, m, *n - j, field))
+				if ((count = ft_county(content, m, *n - j, field)))
 				{
 					*n = *n - j;
-					return (j + 1);
+					return ((count < 0) ? count : j + 1);
 				}
 			}
 			j++;
@@ -92,7 +96,7 @@ int				ft_county(char **content, int m, int n, char **field)
 		if (m == ft_countptr(field))
 			return (0);
 	}
-	return (0);
+	return (-1);
 }
 
 void			ft_humhum(char **field, char **content, int m, int n)
@@ -143,3 +147,109 @@ int				ft_s(int m, int n, int x, char **field)
 		count++;
 	return (count > 4) ? 4 : count;
 }
+
+/*
+ * int				ft_write(char **field, int x, char **content)
+{
+	int			m;
+	int			n;
+
+	m = 0;
+	n = 0;
+	while (field[m] && field[m][n])
+	{
+		if (x == ft_countx(content, m, &n, field))
+		{
+			ft_humhum(field, content, m, n);
+			return (ft_s(m, n, x, field));
+		}
+		if (field[m][n] == '\n')
+		{
+			m++;
+			n = 0;
+		}
+		else
+			n++;
+	}
+	return (-1);
+}
+ *
+ *
+ * int				maxnumb(t_tet *head)
+{
+	int 		count;
+
+	count = 1;
+	while (head != NULL)
+	{
+		if (!head->count)
+			count++;
+		head = head->next;
+	}
+while (head->next != NULL)
+{
+count++;
+head = head->next;
+}
+return (count);
+}
+
+int				ft_searchcount(t_tet *tmp, int next)
+{
+	int 		count;
+
+	count = 0;
+	while (tmp != NULL)
+	{
+		if (tmp->numb == next)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+char			**poisk(t_tet *head, int next)
+{
+	while (head != NULL)
+	{
+		if (head->numb == next)
+			break;
+		head = head->next;
+	}
+	if (head->count > 0)
+		head->count -= head->count;
+	else
+		head->count++;
+//	printf("1 count - %zu\n",head->count);
+	return (head->content);
+}
+
+int				huk(char **field)
+{
+	char 		sim;
+	int 		count;
+	int 		i = 0;
+	int 		j = 0;
+
+	sim = 'A';
+	count = 0;
+	while (field[i])
+	{
+		while (field[i][j] != '\n')
+		{
+			if (field[i][j] == sim)
+			{
+				count++;
+				sim++;
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+//	ft_putsstr(field);
+//	ft_putchar('\n');
+	return (count);
+}
+
+ */

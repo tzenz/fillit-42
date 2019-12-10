@@ -80,7 +80,7 @@ int			vtwo(char *s, char sim)
 	count = 0;
 	i = 0;
 	e = 0;
-	while (s[i] != '#')
+	while (s[i] != '#' && s[i])
 		i++;
 	e = i;
 	while ((s[e + 1] == '#') || (s[e + 5] == '#' || s[e] == '#'))

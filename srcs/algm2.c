@@ -37,7 +37,20 @@ char        **addfield(char **before, int numb)
 	field = ft_strsplitc(buf, '\n');
 	if (before)
 		field = ft_cpyptrn(field, before);
+//	ft_putsstr(field);
+//	ft_putchar('\n');
 	return (field);
+}
+
+int				ft_scount(t_tet *head)
+{
+	while (head != NULL)
+	{
+		if (!head->count)
+			return (1);
+		head = head->next;
+	}
+	return (0);
 }
 
 int				ft_fieldlong(t_tet *head, int i)
@@ -57,107 +70,261 @@ int				ft_fieldlong(t_tet *head, int i)
 		return (ft_sqrt(count) + i);
 }
 
-int				maxnumb(t_tet *head)
+void			ft_cntminus(int x, int y, t_tet *head)
 {
-	int 		count;
-
-	count = 0;
-	while (head != NULL)
+	while (head)
 	{
-		if (!head->count)
-			count++;
+		if (x == head->x)
+			head->cnt = 0;
+		else if (y == head->y)
+			head->cnt = 0;
 		head = head->next;
 	}
-	return (count);
 }
 
-int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+t_tet			*ft_snum(int next, t_tet *head, t_tet *tmp)
 {
-	int			count;
-	int 		random;
-
-	random = 4;
-	count = maxnumb(head);
-	while (tmp != NULL)
+	while (tmp)
 	{
-		while (tmp != NULL)
+		while (tmp)
 		{
-			if (tmp->x == next && !tmp->count)
-				break;
-
+//			printf("next - %d  tmp->count - %zu  tmp->cnt - %d\n", next, tmp->count, tmp->cnt);
+			if (next == tmp->y && !tmp->count && !tmp->cnt)
+			{
+				ft_cntminus(0, tmp->y, head);
+				return (tmp);
+			}
 			tmp = tmp->next;
 		}
-		if (!tmp)
-		{
-			random = (random - 1 < 1) ? 4 : random - 1;
-			next = random;
-			tmp = head;
-		}
-		printf("count - %d  numb - %zu  next - %d  tmp->count - %zu\n", count, tmp->numb, next, tmp->count);
-		if (tmp->x == next && !tmp->count)
-		{
-			if ((next = ft_write(field, tmp->x, tmp->content)) > 0)
-			{
-				count--;
-				tmp->count++;
-			}
-			else
-				return (-1);
-		}
+		next = (next - 1 > 0) ? next - 1 : 4;
 		tmp = head;
-		if (!count)
-			return (0);
+//		printf("SDS");
 	}
 	return (0);
 }
 
+int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+{
+	t_tet		*buf;
+
+//	ft_putsstr(field);
+	if (!ft_scount(head))
+	{
+		ft_putsstr(field);
+		return (0);
+	}
+
+	if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) == -2)
+	{
+		next = buf->y;
+//		buf->cnt++;
+		return (-2);
+	}
+	else if (next == -1)
+	{
+		next = buf->y;
+		buf->cnt++;
+	}
+	else
+	{
+		printf("buf->numb - %zu\n", buf->numb);
+		ft_putsstr(field);
+	}
+	fc1(addfield(field, ft_fieldlong(head, 0)), next, head, head);
+
+	if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) != -2)
+	{
+//		printf("buf->numb - %zu\n", buf->numb);
+//		if (buf->count)
+//			buf->count = 0;
+//		ft_putsstr(field);
+		printf("next - %d\n", next);
+//		ft_putsstr(buf->content);
+		fc1(field, buf->y, head, head);
+	}
+//	ft_putsstr(field);
+//	ft_putchar('\n');
+	return (0);
+}
+
+t_tet			*ft_lstdelete(t_tet *head)
+{
+	t_tet		*buf;
+	int 		i;
+	int 		j;
+
+	i = 0;
+	j = 0;
+	if (head)
+	{
+		while (head->content[i][j] == '.')
+			j++;
+		if (head->content[i][j] == 'A')
+		{
+			buf = head;
+			head = head->next;
+		} else
+		{
+			buf = head->next;
+			head->next = buf->next;
+		}
+		free(buf->content);
+		free(buf);
+		buf = NULL;
+	}
+	return (head);
+}
+
+/*int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+{
+	t_tet		*buf;
+
+	while (ft_scount(head))
+	{
+		if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) == -2)
+			return (-2);
+		else if (next == -1)
+		{
+			next = buf->y;
+			buf->cnt++;
+			ft_putnbr(buf->cnt);
+		}
+		else
+		{
+			while (tmp->numb != buf->numb)
+				tmp = tmp->next;
+			tmp->next = buf->next;
+			free(buf->content);
+			buf->numb = 0;
+//			free(buf);
+			buf = NULL;
+			tmp = head;
+		}
+//		printf("\nnext - %d\n", next);
+//		ft_putsstr(field);
+	}
+	while (head)
+	{
+		ft_putnbr(head->numb);
+		ft_putchar('\n');
+		head = head->next;
+	}
+	return (0);
+}*/
+
 void			algm(t_tet *head)
 {
-	char		**field;
-	int 		count;
+	t_tet *tmp;
+	char **field;
+	int count;
+
 
 	count = 1;
 	field = NULL;
-//	field = addfield(field, 6);
-//	fc1(field, 1, head, head);
-	field = addfield(field, ft_fieldlong(head, 0));
-	while (fc1(field, 1, head, head) < 0)
+	field = addfield(field, 6);
+//	field = addfield(field, ft_fieldlong(head, 0));
+	fc1(field, 1, head, head);
+/*	while (fc1(field, 1, head, head) < 0)
 	{
 		printf(" -- \n");
 		field = addfield(field, ft_fieldlong(head, count++));
-	}
-	ft_putsstr(field);
-}
-
-
- /*
-  *void			fc1(int next, char **field, t_tet *head, t_tet *tmp)
-{
-	int 		count;
-
-	count = 0;
-	if (tmp == NULL)
-	{
 		tmp = head;
-		while (tmp->next != NULL)
+		while (tmp)
 		{
 			if (tmp->count)
-				count++;
+				tmp->count = 0;
 			tmp = tmp->next;
 		}
-		printf("next - %d  count - %d  tmp->numb - %zu\n", next, count, tmp->numb);
-		if (++count == tmp->numb)
-			return;
-		else
-			fc1(next, field, head, (tmp = head));
-	}
-	else if (next == tmp->x && !tmp->count)
+	}*/
+/*	while (head)
 	{
-		tmp->count++;
-		fc1(ft_write(field, tmp->x, tmp->y, tmp->content), field, head, tmp->next)'
-
-	}
-	else
-		fc1(next, field, head, tmp->next);
+		ft_write(field, head);
+		head = head->next;
+	}*/
+//	ft_putsstr(field);
 }
- */
+
+/*
+ * t_tet			*ft_snum(int next, t_tet *head, t_tet *tmp)
+{
+	while (tmp)
+	{
+		while (tmp)
+		{
+			if (next == tmp->y && !tmp->count && !tmp->cnt)
+			{
+				ft_cntminus(0, tmp->y, head);
+				return (tmp);
+			}
+			tmp = tmp->next;
+		}
+		next = (next - 1 > 0) ? next - 1 : 4;
+		tmp = head;
+	}
+	return (0);
+}
+
+int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+{
+	t_tet		*buf;
+
+	while (ft_scount(head))
+	{
+		if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) == -2)
+			return (-2);
+
+		else if (next == -1)
+		{
+			next = buf->y;
+			buf->cnt++;
+			ft_putnbr(buf->cnt);
+		}
+		else
+		{
+
+		}
+		printf("\nnext - %d\n", next);
+	ft_putsstr(field);
+	}
+
+	return (0);
+}
+
+
+int				fc1(char **field, int next, t_tet *head, t_tet *tmp)
+{
+	t_tet		*buf;
+
+//	ft_putsstr(field);
+	if (!ft_scount(head))
+	{
+		ft_putsstr(field);
+		return (0);
+	}
+
+	if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) == -2)
+	{
+		next = buf->y;
+//		buf->cnt++;
+		return (-2);
+	}
+	else if (next == -1)
+	{
+		next = buf->y;
+		buf->cnt++;
+	}
+	fc1(addfield(field, ft_fieldlong(head, 0)), next, head, head);
+	if ((next = ft_write(field, (buf = ft_snum(next, head, head)))) != -2)
+	{
+//		if (buf->count)
+//			buf->count = 0;
+//		ft_putsstr(field);
+		printf("next - %d\n", next);
+//		ft_putsstr(buf->content);
+		fc1(field, buf->y, head, head);
+	}
+//	ft_putsstr(field);
+//	ft_putchar('\n');
+	return (0);
+}
+*/
