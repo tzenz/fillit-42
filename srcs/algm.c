@@ -28,8 +28,8 @@ int				ft_write(char **field, t_tet *tmp)
 			tmp->count++;
 			return (ft_s(m, n, tmp->x, field));
 		}
-		else if (ft_countx(tmp->content, m, &n, field) == -1)
-			return (-1);
+//		else if (ft_countx(tmp->content, m, &n, field) == -1)
+//			return (-1);
 		if (field[m][n] == '\n')
 		{
 			m++;
@@ -38,7 +38,7 @@ int				ft_write(char **field, t_tet *tmp)
 		else
 			n++;
 	}
-	return (-2);
+	return (-1);
 }
 
 int				ft_countx(char **content, int m, int *n, char **field)
@@ -96,7 +96,7 @@ int				ft_county(char **content, int m, int n, char **field)
 		if (m == ft_countptr(field))
 			return (0);
 	}
-	return (-1);
+	return (0);
 }
 
 void			ft_humhum(char **field, char **content, int m, int n)
